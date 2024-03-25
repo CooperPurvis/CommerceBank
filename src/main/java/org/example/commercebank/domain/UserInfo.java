@@ -18,10 +18,10 @@ public class UserInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long uid;
-    private String userId;
-    private String password;
-    private String role;
+    private Long user_uid;
+    private String user_id;
+    private String user_password;
+    private String user_role;
 
 
     @OneToMany(mappedBy = "userInfo")

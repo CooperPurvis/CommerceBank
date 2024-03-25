@@ -1,20 +1,25 @@
 package org.example.commercebank.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserApps {
 
     @Id
-    private long userUid;
-    private long appUid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long user_apps_uid;
+    private long user_uid;
+    private String app_uid;
+
+
+    //Connections to other Entities
+
 
 }

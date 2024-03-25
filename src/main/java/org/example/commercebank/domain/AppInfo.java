@@ -2,26 +2,20 @@ package org.example.commercebank.domain;
 
 
 import jakarta.persistence.*;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.User;
+import lombok.AllArgsConstructor;
 
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class AppInfo {
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long aid;
-    private String desc;
+    private String app_info_uid;
+    private String app_info_description;
 
-
-    @ManyToOne
-    @JoinColumn(name = "uid")
-    private UserInfo userInfo;
 
 }
