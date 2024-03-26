@@ -1,13 +1,14 @@
 server:
-    port: 8080
+  port: 8080
 
 spring:
   datasource:
-    url: jdbd:mysql://localhost:3306/commerce_database
+    url: jdbc:mysql://localhost:3306/commerce_database
     username: commerceuser
     password: CommerceBank1!
   jpa:
     hibernate:
       ddl-auto: update
+    open-in-view: true
   application:
     name: Commerce-Bank
