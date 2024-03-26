@@ -49,6 +49,8 @@ public class User {
 
 
     //Add Foreign Key reference to the UserApps Bridge Table
-    @OneToMany(mappedBy = "user_uid")
-    private List<UserApplication> userApplicationList = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "user_apps", joinColumns = @JoinColumn(name = "user_uid"),
+            inverseJoinColumns = @JoinColumn(name = "app_info_uid"))
+    private List<Application> applications = new ArrayList<>();
 }

@@ -17,14 +17,14 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "ip_entry")
+@Table(name = "ip_entries")
 public class IpEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long server_info_uid;
 
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false, insertable = false)
     private Long app_info_uid;
 
     @Column(length = 253, nullable = false)
@@ -69,4 +69,8 @@ public class IpEntry {
         this.created_by = created_by;
         this.modified_by = modified_by;
     }
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "app_info_uid")
+    private Application application;
 }

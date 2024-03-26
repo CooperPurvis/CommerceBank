@@ -19,7 +19,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "application_info")
+@Table(name = "applications")
 public class Application {
 
     @Id
@@ -54,9 +54,11 @@ public class Application {
 
 
     //Add Foreign Key references to the ServerInfo list and UserApps list
-    @OneToMany(mappedBy = "app_info_uid")
-    private List<IpEntry> ipEntryList = new ArrayList<>();
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<IpEntry> ipEntries = new ArrayList<>();
 
-    @OneToMany(mappedBy = "app_info_uid")
-    private List<UserApplication> userApplicationList = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "user_apps", joinColumns = @JoinColumn(name = "app_info_uid"),
+                inverseJoinColumns = @JoinColumn(name = "user_uid"))
+    private List<User> users = new ArrayList<>();
 }
