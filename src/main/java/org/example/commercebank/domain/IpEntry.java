@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "ip_entries")
 public class IpEntry {
@@ -25,7 +26,7 @@ public class IpEntry {
     private Long server_info_uid;
 
     @Column(nullable = false, updatable = false, insertable = false)
-    private Long app_info_uid;
+    private Long application_uid;
 
     @Column(length = 253, nullable = false)
     private String source_host_name;
@@ -71,6 +72,6 @@ public class IpEntry {
     }
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "app_info_uid")
+    @JoinColumn(name = "application_uid")
     private Application application;
 }

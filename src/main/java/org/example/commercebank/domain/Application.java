@@ -18,19 +18,20 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "applications")
 public class Application {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long app_info_uid;
+    private Long application_uid;
 
     @Column(length = 3, nullable = false)
-    private String app_info_id;
+    private String application_id;
 
     @Column(length = 50)
-    private String app_info_description;
+    private String application_description;
 
     @CreationTimestamp
     private LocalDateTime created_at;
@@ -45,9 +46,9 @@ public class Application {
     private String modified_by;
 
     //Constructor we will use
-    Application(String app_info_id, String app_info_description, String created_by, String modified_by) {
-        this.app_info_id = app_info_id;
-        this.app_info_description = app_info_description;
+    Application(String application_id, String application_description, String created_by, String modified_by) {
+        this.application_id = application_id;
+        this.application_description = application_description;
         this.created_by = created_by;
         this.modified_by = modified_by;
     }
@@ -57,8 +58,7 @@ public class Application {
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<IpEntry> ipEntries = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_apps", joinColumns = @JoinColumn(name = "app_info_uid"),
-                inverseJoinColumns = @JoinColumn(name = "user_uid"))
-    private List<User> users = new ArrayList<>();
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<UserApplication> userApplications = new ArrayList<>();
+
 }

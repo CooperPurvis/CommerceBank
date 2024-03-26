@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "user_apps")
 public class UserApplication {
@@ -22,12 +23,6 @@ public class UserApplication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_apps_uid;
-
-    @Column(nullable = false)
-    private Long user_uid;
-
-    @Column(nullable = false)
-    private Long app_info_uid;
 
     @CreationTimestamp
     private LocalDateTime created_at;
@@ -41,9 +36,12 @@ public class UserApplication {
     @Column(length = 30, nullable = false)
     private String modified_by;
 
-    //Constructor for our use
-    UserApplication(String created_by, String modified_by) {
-        this.created_by = created_by;
-        this.modified_by = modified_by;
-    }
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "application_uid", nullable = false)
+    private Application application;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_uid", nullable = false)
+    private User user;
 }
