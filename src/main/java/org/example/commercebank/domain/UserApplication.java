@@ -12,20 +12,22 @@ import java.time.LocalDateTime;
  *  unique id as well as foreign keys to AppInfo and UserInfo. It is also accompanied
  *  by created_by, created_at, modified_by, and modified_at. */
 @Data
-@Entity
+@Getter
+@Setter
 @NoArgsConstructor
+@Entity
 @Table(name = "user_apps")
-public class UserApps {
+public class UserApplication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long user_apps_uid;
+    private Long user_apps_uid;
 
     @Column(nullable = false)
-    private long user_uid;
+    private Long user_uid;
 
     @Column(nullable = false)
-    private long app_info_uid;
+    private Long app_info_uid;
 
     @CreationTimestamp
     private LocalDateTime created_at;
@@ -40,7 +42,7 @@ public class UserApps {
     private String modified_by;
 
     //Constructor for our use
-    UserApps(String created_by, String modified_by) {
+    UserApplication(String created_by, String modified_by) {
         this.created_by = created_by;
         this.modified_by = modified_by;
     }

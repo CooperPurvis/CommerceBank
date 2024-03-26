@@ -13,17 +13,19 @@ import java.time.LocalDateTime;
  *  destination as well. Lastly is an ip status(active, inactive) It is also accompanied
  *  by created_by, created_at, modified_by, and modified_at. */
 @Data
-@Entity
+@Getter
+@Setter
 @NoArgsConstructor
+@Entity
 @Table(name = "ip_entry")
-public class ServerInfo {
+public class IpEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long server_info_uid;
+    private Long server_info_uid;
 
     @Column(nullable = false)
-    private long app_info_uid;
+    private Long app_info_uid;
 
     @Column(length = 253, nullable = false)
     private String source_host_name;
@@ -56,8 +58,8 @@ public class ServerInfo {
     private String modified_by;
 
     //Constructor for our use
-    ServerInfo(String source_host_name, String source_ip_address, String destination_host_name, String destination_ip_address,
-               String destination_port, String ip_status, String created_by, String modified_by) {
+    IpEntry(String source_host_name, String source_ip_address, String destination_host_name, String destination_ip_address,
+            String destination_port, String ip_status, String created_by, String modified_by) {
         this.source_host_name = source_host_name;
         this.source_ip_address = source_ip_address;
         this.destination_host_name = destination_host_name;
