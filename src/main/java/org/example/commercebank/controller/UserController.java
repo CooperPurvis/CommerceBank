@@ -6,7 +6,7 @@ import org.example.commercebank.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.json.JSONObject;
 
 @RestController
 @RequestMapping("/api/users")
@@ -25,9 +25,15 @@ public class UserController {
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
+    @PutMapping
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        User updatedUser = userService.updateUser(user);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    }
+
     @DeleteMapping
-    public ResponseEntity<Void> deleteUser(@RequestBody User user) {
-        userService.deleteUser(user.getUserId());
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<User> deleteUser(@RequestParam JSONObject body) {
+        User deletedUser = userService.deleteUser(body.getString("userId"));
+        return new ResponseEntity<>(deletedUser, HttpStatus.OK);
     }
 }

@@ -48,14 +48,6 @@ public class Application {
     @Column(length = 30, nullable = false, name = "modified_by")
     private String modifiedBy;
 
-    //Constructor we will use
-    Application(String applicationId, String applicationDescription, String createdBy, String modifiedBy) {
-        this.applicationId = applicationId;
-        this.applicationDescription = applicationDescription;
-        this.createdBy = createdBy;
-        this.modifiedBy = modifiedBy;
-    }
-
 
     //Add Foreign Key references to the ServerInfo list and UserApps list
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

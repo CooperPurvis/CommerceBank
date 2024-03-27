@@ -18,8 +18,19 @@ public class UserImplementation implements UserService {
     }
 
     @Override
-    public void deleteUser(String user_id) {
-        userRepository.deleteByUserId(user_id);
+    public User updateUser(User user) {
+        User oldUser = userRepository.getByUserId(user.getUserId());
+        if (user.getUserPassword()==null)
+            user.setUserPassword(oldUser.getUserPassword());
+        user.setCreatedBy(oldUser.getCreatedBy());
+        user.setCreatedAt(oldUser.getCreatedAt());
+        user.setUserUid(oldUser.getUserUid());
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User deleteUser(String userId) {
+        return userRepository.deleteUserByUserId(userId);
     }
 
 }

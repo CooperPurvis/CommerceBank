@@ -6,8 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query (value = "UPDATE User u SET u.userPassword = ?2 WHERE u.userId = ?1")
-    User updatePassword(String id, String password);
+    @Query (value = "SELECT u FROM User u WHERE u.userId = ?1")
+            User getByUserId(String userId);
 
-    void deleteByUserId(String id);
+
+    User deleteUserByUserId(String userId);
 }

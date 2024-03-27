@@ -50,18 +50,6 @@ public class User {
     @Column(length = 30, nullable = false, name = "modified_by")
     private String modifiedBy;
 
-    User(String userId, String userPassword, String createdBy, String modifiedBy) {
-        this.userId = userId;
-        this.userPassword = userPassword;
-        this.createdBy = createdBy;
-        this.modifiedBy = modifiedBy;
-    }
-
-    User(String userId, String createdBy, String modifiedBy) {
-        this.userId = userId;
-        this.createdBy = createdBy;
-        this.modifiedBy = modifiedBy;
-    }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserApplication> userApplications = new ArrayList<>();

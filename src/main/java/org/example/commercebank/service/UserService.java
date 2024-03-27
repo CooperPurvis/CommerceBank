@@ -4,6 +4,7 @@ import org.example.commercebank.domain.User;
 
 public interface UserService {
     User createUser(User user);
-    void deleteUser(String user_id);
+    User updateUser(User user);
+    User deleteUser(String userId);
 
 }
