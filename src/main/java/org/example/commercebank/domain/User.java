@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Definition for a User in this system. It includes their identifying id, a user_id for
- *  logging in purposes, user_password, and a user_role (user/admin). It is also
- *  accompanied by created_by, created_at, modified_by, and modified_at.*/
+/** Definition for a User in this system. It includes their identifying id, a userId for
+ *  logging in purposes, userPassword, and a user_role (user/admin). It is also
+ *  accompanied by createdBy, created_at, modifiedBy, and modified_at.*/
 @Data
 @Getter
 @Setter
@@ -24,29 +24,44 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_uid;
+    @Column(name = "user_uid")
+    private Long userUid;
 
-    @Column(length = 30, nullable = false)
-    private String user_id;
+    @Column(length = 30, nullable = false, unique = true, name = "user_id")
+    private String userId;
 
-    @Column(length = 45)
-    private String user_password;
+    @Column(length = 45, name = "user_password")
+    private String userPassword;
 
-    @Column(length = 10, nullable = false)
-    private String user_role;
+    @Column(length = 10, nullable = false, name = "user_role")
+    private String userRole = "user";
 
     @CreationTimestamp
-    private LocalDateTime created_at;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
-    @Column(length = 30, nullable = false)
-    private String created_by;
+    @Column(length = 30, nullable = false, name = "created_by")
+    private String createdBy;
 
     @UpdateTimestamp
-    private LocalDateTime modified_at;
+    @Column(name = "modified_at")
+    private LocalDateTime modifiedAt;
 
-    @Column(length = 30, nullable = false)
-    private String modified_by;
+    @Column(length = 30, nullable = false, name = "modified_by")
+    private String modifiedBy;
 
+    User(String userId, String userPassword, String createdBy, String modifiedBy) {
+        this.userId = userId;
+        this.userPassword = userPassword;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
+    }
+
+    User(String userId, String createdBy, String modifiedBy) {
+        this.userId = userId;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
+    }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserApplication> userApplications = new ArrayList<>();

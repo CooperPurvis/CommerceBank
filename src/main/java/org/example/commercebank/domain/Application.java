@@ -13,7 +13,7 @@ import java.util.List;
 
 /** Definition for the Applications themselves. This includes a unique long id primary key,
  *  a 3 character id that will be used by employees, and a short description. It is also
- *  accompanied by created_by, created_at, modified_by, and modified_at. */
+ *  accompanied by createdBy, created_at, modifiedBy, and modified_at. */
 @Data
 @Getter
 @Setter
@@ -25,32 +25,35 @@ public class Application {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long application_uid;
+    @Column(name = "application_uid")
+    private Long applicationUid;
 
-    @Column(length = 3, nullable = false)
-    private String application_id;
+    @Column(length = 3, nullable = false, unique = true, name = "application_id")
+    private String applicationId;
 
-    @Column(length = 50)
-    private String application_description;
+    @Column(length = 50, name = "application_description")
+    private String applicationDescription;
 
     @CreationTimestamp
-    private LocalDateTime created_at;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
-    @Column(length = 30, nullable = false)
-    private String created_by;
+    @Column(length = 30, nullable = false, name = "created_by")
+    private String createdBy;
 
     @UpdateTimestamp
-    private LocalDateTime modified_at;
+    @Column(name = "modified_at")
+    private LocalDateTime modifiedAt;
 
-    @Column(length = 30, nullable = false)
-    private String modified_by;
+    @Column(length = 30, nullable = false, name = "modified_by")
+    private String modifiedBy;
 
     //Constructor we will use
-    Application(String application_id, String application_description, String created_by, String modified_by) {
-        this.application_id = application_id;
-        this.application_description = application_description;
-        this.created_by = created_by;
-        this.modified_by = modified_by;
+    Application(String applicationId, String applicationDescription, String createdBy, String modifiedBy) {
+        this.applicationId = applicationId;
+        this.applicationDescription = applicationDescription;
+        this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
     }
 
 

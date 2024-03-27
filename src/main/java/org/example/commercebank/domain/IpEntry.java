@@ -23,53 +23,44 @@ public class IpEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long server_info_uid;
+    @Column(name = "ip_entry_uid")
+    private Long IpEntryUid;
 
-    @Column(nullable = false, updatable = false, insertable = false)
-    private Long application_uid;
+    @Column(nullable = false, updatable = false, insertable = false, name = "application_uid")
+    private Long applicationUid;
 
-    @Column(length = 253, nullable = false)
-    private String source_host_name;
+    @Column(length = 253, nullable = false, name = "source_house_name")
+    private String sourceHostName;
 
-    @Column(length = 15, nullable = false)
-    private String source_ip_address;
+    @Column(length = 15, nullable = false, name = "source_ip_address")
+    private String sourceIpAddress;
 
-    @Column(length = 253, nullable = false)
-    private String destination_host_name;
+    @Column(length = 253, nullable = false, name = "destination_host_name")
+    private String destinationHostName;
 
-    @Column(length = 15, nullable = false)
-    private String destination_ip_address;
+    @Column(length = 15, nullable = false, name = "destination_ip_address")
+    private String destinationIpAddress;
 
-    @Column(length = 5, nullable = false)
-    private String destination_port;
+    @Column(length = 5, nullable = false, name = "destination_port")
+    private String destinationPort;
 
-    @Column(length = 8, nullable = false)
-    private String ip_status;
+    @Column(length = 8, nullable = false, name = "ip_status")
+    private String ipStatus;
 
     @CreationTimestamp
-    private LocalDateTime created_at;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
-    @Column(length = 30, nullable = false)
-    private String created_by;
+    @Column(length = 30, nullable = false, name = "created_by")
+    private String createdBy;
 
     @UpdateTimestamp
-    private LocalDateTime modified_at;
+    @Column(name = "modified_at")
+    private LocalDateTime modifiedAt;
 
-    @Column(length = 30, nullable = false)
-    private String modified_by;
+    @Column(length = 30, nullable = false, name = "modified_by")
+    private String modifiedBy;
 
-    //Constructor for our use
-    IpEntry(String source_host_name, String source_ip_address, String destination_host_name, String destination_ip_address,
-            String destination_port, String ip_status, String created_by, String modified_by) {
-        this.source_host_name = source_host_name;
-        this.source_ip_address = source_ip_address;
-        this.destination_host_name = destination_host_name;
-        this.destination_ip_address = destination_ip_address;
-        this.destination_port = destination_port;
-        this.ip_status = ip_status;
-        this.created_by = created_by;
-        this.modified_by = modified_by;
-    }
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "application_uid")

@@ -22,19 +22,22 @@ public class UserApplication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_apps_uid;
+    @Column(name = "user_apps_uid")
+    private Long userAppsUid;
 
     @CreationTimestamp
-    private LocalDateTime created_at;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
-    @Column(length = 30, nullable = false)
-    private String created_by;
+    @Column(length = 30, nullable = false, name = "created_by")
+    private String createdBy;
 
     @UpdateTimestamp
-    private LocalDateTime modified_at;
+    @Column(name = "modified_at")
+    private LocalDateTime modifiedAt;
 
-    @Column(length = 30, nullable = false)
-    private String modified_by;
+    @Column(length = 30, nullable = false, name = "modified_by")
+    private String modifiedBy;
 
 
     @ManyToOne(cascade = CascadeType.ALL)
