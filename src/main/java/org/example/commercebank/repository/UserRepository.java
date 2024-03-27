@@ -9,6 +9,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query (value = "SELECT u FROM User u WHERE u.userId = ?1")
             User getByUserId(String userId);
 
-
-    User deleteUserByUserId(String userId);
+    User deleteByUserId(String userId);
 }

@@ -41,15 +41,20 @@ public class User {
     private LocalDateTime createdAt;
 
     @Column(length = 30, nullable = false, name = "created_by")
-    private String createdBy;
+    private String createdBy = "";
 
     @UpdateTimestamp
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
 
     @Column(length = 30, nullable = false, name = "modified_by")
-    private String modifiedBy;
+    private String modifiedBy = "";
 
+    public User(String userId, String createdBy) {
+        this.userId = userId;
+        this.createdBy = createdBy;
+        this.modifiedBy = createdBy;
+    }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserApplication> userApplications = new ArrayList<>();

@@ -6,6 +6,8 @@ import org.example.commercebank.repository.UserRepository;
 import org.example.commercebank.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UserImplementation implements UserService {
@@ -14,6 +16,7 @@ public class UserImplementation implements UserService {
 
     @Override
     public User createUser(User user) {
+        user.setModifiedBy(user.getCreatedBy());
         return userRepository.save(user);
     }
 
@@ -29,8 +32,14 @@ public class UserImplementation implements UserService {
     }
 
     @Override
-    public User deleteUser(String userId) {
-        return userRepository.deleteUserByUserId(userId);
+    public void deleteUser(String userId) {
+        User oldUser = userRepository.getByUserId(userId);
+        userRepository.delete(oldUser);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
 }
