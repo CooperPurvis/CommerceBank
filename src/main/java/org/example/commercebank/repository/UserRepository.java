@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query (value = "SELECT u FROM User u WHERE u.userId = ?1")
-            User getByUserId(String userId);
+    User getByUserId(String userId);
 
+    boolean existsByUserIdAndUserPassword(String userId, String userPassword);
+
+    boolean existsByUserId(String userId);
 }

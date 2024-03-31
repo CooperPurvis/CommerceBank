@@ -46,7 +46,7 @@ public class Application {
     private LocalDateTime modifiedAt;
 
     @Column(length = 30, nullable = false, name = "modified_by")
-    private String modifiedBy;
+    private String modifiedBy = "";
 
 
     //Add Foreign Key references to the ServerInfo list and UserApps list
