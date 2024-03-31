@@ -14,23 +14,12 @@ import java.util.List;
 @RequestMapping("/api/user")
 @AllArgsConstructor
 public class UserController {
-
     private UserService userService;
 
     //Get all users in the database
-    @RequestMapping("/all")
     @GetMapping
     public ResponseEntity<List<User>> getUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
-    }
-
-    //Check to ensure the entered information matches a user in the database
-    @RequestMapping("/login")
-    @GetMapping
-    public ResponseEntity<Map<String, String>> loginCheck(@RequestBody Map<String, String> loginInfo) {
-        if(userService.isValidLogin(loginInfo))
-            return new ResponseEntity<>(userService.getLoginInfo(loginInfo), HttpStatus.OK);
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     //Create a user entity and add it to the database

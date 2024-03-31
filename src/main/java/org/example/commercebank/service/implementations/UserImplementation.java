@@ -12,9 +12,12 @@ import java.util.Map;
 @Service
 @AllArgsConstructor
 public class UserImplementation implements UserService {
-
     private UserRepository userRepository;
 
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
     @Override
     public User createUser(User newUser) {
         newUser.setModifiedBy(newUser.getCreatedBy());
@@ -39,19 +42,6 @@ public class UserImplementation implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    @Override
-    public Map<String, String> getLoginInfo(Map<String, String> loginInfo) {
-        loginInfo.remove("userPassword");
-        loginInfo.put("userRole", getUserRole(loginInfo.get("userId")));
-        System.out.println("Returning: " + loginInfo.toString());
-        return loginInfo;
-    }
-
-    @Override
     public boolean isValidLogin(Map<String, String> userInfo) {
         return userRepository.existsByUserIdAndUserPassword(userInfo.get("userId"), userInfo.get("userPassword"));
     }
@@ -65,5 +55,12 @@ public class UserImplementation implements UserService {
     @Override
     public boolean exists(String userId) {
         return userRepository.existsByUserId(userId);
+    }
+
+    @Override
+    public Map<String, String> getLoginInfo(Map<String, String> loginInfo) {
+        loginInfo.remove("userPassword");
+        loginInfo.put("userRole", getUserRole(loginInfo.get("userId")));
+        return loginInfo;
     }
 }
