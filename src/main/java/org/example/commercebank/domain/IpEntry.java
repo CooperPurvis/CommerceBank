@@ -1,6 +1,7 @@
 package org.example.commercebank.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,9 +27,6 @@ public class IpEntry {
     @Column(name = "ip_entry_uid")
     private Long IpEntryUid;
 
-    @Column(nullable = false, updatable = false, insertable = false, name = "application_uid")
-    private Long applicationUid;
-
     @Column(length = 253, nullable = false, name = "source_house_name")
     private String sourceHostName;
 
@@ -45,7 +43,7 @@ public class IpEntry {
     private String destinationPort;
 
     @Column(length = 8, nullable = false, name = "ip_status")
-    private String ipStatus;
+    private String ipStatus = "Active";
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -59,10 +57,42 @@ public class IpEntry {
     private LocalDateTime modifiedAt;
 
     @Column(length = 30, nullable = false, name = "modified_by")
-    private String modifiedBy;
+    private String modifiedBy = "";
 
+    public IpEntry(String sourceHostName, String sourceIpAddress, String destinationHostName,
+            String destinationIpAddress, String destinationPort, String createdBy, Application referencedApp) {
+        this.sourceHostName = sourceHostName;
+        this.sourceIpAddress = sourceIpAddress;
+        this.destinationHostName = destinationHostName;
+        this.destinationIpAddress = destinationIpAddress;
+        this.destinationPort = destinationPort;
+        this.createdBy = createdBy;
+        this.modifiedBy = createdBy;
+        this.application = referencedApp;
+    }
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "application_uid")
+    @JoinColumn(name = "application_Uid", nullable = false)
+    @JsonBackReference
     private Application application;
+
+    @Override
+    public String toString() {
+        return String.format("""
+                        ipEntryUid: %d
+                        Referenced App: %s
+                        sourceHostName: %s
+                        sourceIpAddress: %s
+                        destinationHostName: %s
+                        destinationIpAddress: %s
+                        destinationPort: %s
+                        ipStatus: %s
+                        createdAt: %s
+                        createdBy: %s
+                        modifiedAt: %s
+                        modifiedBy: %s
+                        """, getIpEntryUid(), getApplication().getApplicationId(),
+                getSourceHostName(), getSourceIpAddress(), getDestinationHostName(), getDestinationIpAddress(),
+                getDestinationPort(), getIpStatus(), getCreatedAt(), getCreatedBy(), getModifiedAt(), getModifiedBy());
+    }
 }

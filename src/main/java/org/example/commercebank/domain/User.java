@@ -1,6 +1,7 @@
 package org.example.commercebank.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -50,12 +51,22 @@ public class User {
     @Column(length = 30, nullable = false, name = "modified_by")
     private String modifiedBy = "";
 
-    public User(String userId, String createdBy) {
-        this.userId = userId;
-        this.createdBy = createdBy;
-        this.modifiedBy = createdBy;
-    }
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<UserApplication> userApplications = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return String.format("""
+                userUid: %d
+                userId: %s
+                userPassword: %s
+                userRole: %s
+                createdAt: %s
+                createdBy: %s
+                modifiedAt: %s
+                modifiedBy: %s
+                """, getUserUid(), getUserId(), getUserPassword(), getUserRole(),
+                getCreatedAt(), getCreatedBy(), getModifiedAt(), getModifiedBy());
+    }
 }

@@ -1,6 +1,7 @@
 package org.example.commercebank.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -51,9 +52,11 @@ public class Application {
 
     //Add Foreign Key references to the ServerInfo list and UserApps list
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<IpEntry> ipEntries = new ArrayList<>();
 
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<UserApplication> userApplications = new ArrayList<>();
 
 }
