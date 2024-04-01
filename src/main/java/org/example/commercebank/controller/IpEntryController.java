@@ -15,15 +15,15 @@ import java.util.Map;
 public class IpEntryController {
     private IpEntryService ipEntryService;
 
-    @PostMapping
-    public ResponseEntity<IpEntry> createIpEntry(@RequestBody IpEntry ipEntry) {
-        return new ResponseEntity<>(ipEntryService.addIpEntry(ipEntry), HttpStatus.CREATED);
-    }
-
 //    @PostMapping
-//    public ResponseEntity<IpEntry> createIpEntry(@RequestBody Map<String, String> ipEntryInfo) {
-//        return new ResponseEntity<>(ipEntryService.addIpEntry(ipEntryInfo), HttpStatus.CREATED);
+//    public ResponseEntity<IpEntry> createIpEntry(@RequestBody IpEntry ipEntry) {
+//        return new ResponseEntity<>(ipEntryService.addIpEntry(ipEntry), HttpStatus.CREATED);
 //    }
+
+    @PostMapping
+    public ResponseEntity<IpEntry> createIpEntry(@RequestBody Map<String, String> ipEntryInfo) {
+        return new ResponseEntity<>(ipEntryService.addIpEntry(ipEntryInfo), HttpStatus.CREATED);
+    }
 
 //    @PutMapping
 //    public ResponseEntity<IpEntry> updateIpEntry(@RequestBody Map<String, String> ipEntryInfo) {

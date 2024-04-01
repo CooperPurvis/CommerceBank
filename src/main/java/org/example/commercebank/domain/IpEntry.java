@@ -73,7 +73,6 @@ public class IpEntry {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "application_Uid", nullable = false)
-    @JsonBackReference
     private Application application;
 
     @Override

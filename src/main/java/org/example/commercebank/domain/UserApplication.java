@@ -43,11 +43,9 @@ public class UserApplication {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "application_uid", nullable = false)
-    @JsonBackReference
     private Application application;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_uid", nullable = false)
-    @JsonBackReference
     private User user;
 }

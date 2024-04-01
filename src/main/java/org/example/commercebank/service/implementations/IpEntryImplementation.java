@@ -16,24 +16,24 @@ public class IpEntryImplementation implements IpEntryService {
     private IpEntryRepository ipEntryRepository;
     private ApplicationRepository applicationRepository;
 
-    @Override
-    public IpEntry addIpEntry(IpEntry ipEntry) {
-        ipEntry.setModifiedBy(ipEntry.getCreatedBy());
-        System.out.println(ipEntry);
-        return ipEntryRepository.save(ipEntry);
-    }
-
 //    @Override
-//    public IpEntry addIpEntry(Map<String, String> ipEntryInfo) {
-//        Application referencedApp = applicationRepository.getByApplicationId(ipEntryInfo.get("applicationId"));
-//        IpEntry newIpEntry = new IpEntry(ipEntryInfo.get("sourceHostName"), ipEntryInfo.get("sourceIpAddress"),
-//                ipEntryInfo.get("destinationHostName"), ipEntryInfo.get("destinationIpAddress"),
-//                ipEntryInfo.get("destinationPort"), ipEntryInfo.get("createdBy"), referencedApp);
-//        if(ipEntryInfo.get("ipStatus") != null)
-//            newIpEntry.setIpStatus(ipEntryInfo.get("ipStatus"));
-//        System.out.println("IpEntry:\n" + newIpEntry);
-//        return ipEntryRepository.save(newIpEntry);
+//    public IpEntry addIpEntry(IpEntry ipEntry) {
+//        ipEntry.setModifiedBy(ipEntry.getCreatedBy());
+//        System.out.println(ipEntry);
+//        return ipEntryRepository.save(ipEntry);
 //    }
+
+    @Override
+    public IpEntry addIpEntry(Map<String, String> ipEntryInfo) {
+        Application referencedApp = applicationRepository.getByApplicationId(ipEntryInfo.get("applicationId"));
+        IpEntry newIpEntry = new IpEntry(ipEntryInfo.get("sourceHostName"), ipEntryInfo.get("sourceIpAddress"),
+                ipEntryInfo.get("destinationHostName"), ipEntryInfo.get("destinationIpAddress"),
+                ipEntryInfo.get("destinationPort"), ipEntryInfo.get("createdBy"), referencedApp);
+        if(ipEntryInfo.get("ipStatus") != null)
+            newIpEntry.setIpStatus(ipEntryInfo.get("ipStatus"));
+        System.out.println("IpEntry:\n" + newIpEntry);
+        return ipEntryRepository.save(newIpEntry);
+    }
 
     @Override
     public Long getAppUid(String appId) {
