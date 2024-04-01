@@ -52,7 +52,6 @@ public class User {
     private String modifiedBy = "";
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
     private List<UserApplication> userApplications = new ArrayList<>();
 
     @Override
