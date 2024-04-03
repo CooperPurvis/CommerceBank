@@ -8,6 +8,7 @@ import org.example.commercebank.repository.IpEntryRepository;
 import org.example.commercebank.service.IpEntryService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -16,12 +17,10 @@ public class IpEntryImplementation implements IpEntryService {
     private IpEntryRepository ipEntryRepository;
     private ApplicationRepository applicationRepository;
 
-//    @Override
-//    public IpEntry addIpEntry(IpEntry ipEntry) {
-//        ipEntry.setModifiedBy(ipEntry.getCreatedBy());
-//        System.out.println(ipEntry);
-//        return ipEntryRepository.save(ipEntry);
-//    }
+    @Override
+    public List<IpEntry> getIpEntries() {
+        return ipEntryRepository.findAll();
+    }
 
     @Override
     public IpEntry addIpEntry(Map<String, String> ipEntryInfo) {
@@ -36,7 +35,12 @@ public class IpEntryImplementation implements IpEntryService {
     }
 
     @Override
-    public Long getAppUid(String appId) {
-        return applicationRepository.getByApplicationId(appId).getApplicationUid();
+    public IpEntry updateIpEntry(Map<String, String> ipEntryInfo) {
+
+    }
+
+    @Override
+    public void deleteIpEntry(Map<String, Long> ipEntryInfo) {
+        ipEntryRepository.deleteById(ipEntryInfo.get("ipEntryUid"));
     }
 }

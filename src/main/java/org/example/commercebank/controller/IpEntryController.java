@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -15,18 +16,24 @@ import java.util.Map;
 public class IpEntryController {
     private IpEntryService ipEntryService;
 
-//    @PostMapping
-//    public ResponseEntity<IpEntry> createIpEntry(@RequestBody IpEntry ipEntry) {
-//        return new ResponseEntity<>(ipEntryService.addIpEntry(ipEntry), HttpStatus.CREATED);
-//    }
+    @GetMapping
+    public ResponseEntity<List<IpEntry>> getIpEntries() {
+        return new ResponseEntity<>(ipEntryService.getIpEntries(), HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity<IpEntry> createIpEntry(@RequestBody Map<String, String> ipEntryInfo) {
         return new ResponseEntity<>(ipEntryService.addIpEntry(ipEntryInfo), HttpStatus.CREATED);
     }
 
-//    @PutMapping
-//    public ResponseEntity<IpEntry> updateIpEntry(@RequestBody Map<String, String> ipEntryInfo) {
-//
-//    }
+    @PutMapping
+    public ResponseEntity<IpEntry> updateIpEntry(@RequestBody Map<String, String> ipEntryInfo) {
+        return new ResponseEntity<>(ipEntryService.updateIpEntry(ipEntryInfo), HttpStatus.OK);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteIpEntry(@RequestBody Map<String, Long> ipEntryInfo) {
+        ipEntryService.deleteIpEntry(ipEntryInfo);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
