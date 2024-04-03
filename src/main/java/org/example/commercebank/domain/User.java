@@ -1,6 +1,7 @@
 package org.example.commercebank.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -51,6 +52,7 @@ public class User {
     @Column(length = 30, nullable = false, name = "modified_by")
     private String modifiedBy = "";
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserApplication> userApplications = new ArrayList<>();
 
