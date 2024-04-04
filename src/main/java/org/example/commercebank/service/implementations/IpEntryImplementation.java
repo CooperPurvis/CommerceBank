@@ -36,7 +36,7 @@ public class IpEntryImplementation implements IpEntryService {
 
     @Override
     public IpEntry updateIpEntry(Map<String, String> ipEntryInfo) {
-
+        return null;
     }
 
     @Override

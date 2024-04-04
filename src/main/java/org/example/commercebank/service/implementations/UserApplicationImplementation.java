@@ -18,10 +18,10 @@ public class UserApplicationImplementation implements UserApplicationService {
         return userApplicationRepository.findAll();
     }
     public UserApplication createUserApplication(Map<String, String> userApplicationInformation) {
-
+        return null;
     }
     public UserApplication updateUserApplication(Map<String, String> userApplicationInformation) {
-
+        return null;
     }
     public void deleteUserApplication(Map<String, String> userApplicationInformation) {
 

@@ -1,8 +1,6 @@
 package org.example.commercebank.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -94,5 +92,10 @@ public class IpEntry {
                         """, getIpEntryUid(), getApplication().getApplicationId(),
                 getSourceHostName(), getSourceIpAddress(), getDestinationHostName(), getDestinationIpAddress(),
                 getDestinationPort(), getIpStatus(), getCreatedAt(), getCreatedBy(), getModifiedAt(), getModifiedBy());
+    }
+
+    public String[] toExcelRow() {
+        return new String[]{application.getApplicationId(), sourceHostName, sourceIpAddress, destinationHostName,
+            destinationIpAddress, destinationPort, ipStatus, createdAt.toString(), createdBy, modifiedAt.toString(), modifiedBy};
     }
 }
