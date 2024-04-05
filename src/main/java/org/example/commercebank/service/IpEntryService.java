@@ -9,6 +9,9 @@ public interface IpEntryService {
 
     List<IpEntry> getIpEntries();
     IpEntry addIpEntry(Map<String, String> ipEntryInfo);
-    IpEntry updateIpEntry(Map<String, String> ipEntryInfo);
+    IpEntry updateIpEntry(Map<String, Object> ipEntryInfo);
     void deleteIpEntry(Map<String, Long> ipEntryInfo);
+    boolean ipEntryexists(Long ipEntryUid);
+    boolean infoExists(Map<String, String> ipEntryInfo);
+    boolean appExists(String applicationId);
 }

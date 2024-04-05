@@ -5,4 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IpEntryRepository extends JpaRepository<IpEntry, Long> {
 
+    boolean existsByDestinationHostNameAndDestinationIpAddressAndDestinationPort(
+            String destinationHostName, String destinationIpAddress, String destinationPort);
+
 }

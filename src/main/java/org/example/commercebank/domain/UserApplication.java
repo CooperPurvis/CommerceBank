@@ -1,10 +1,10 @@
 package org.example.commercebank.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -32,19 +32,30 @@ public class UserApplication {
     @Column(length = 30, nullable = false, name = "created_by")
     private String createdBy;
 
-    @UpdateTimestamp
-    @Column(name = "modified_at")
-    private LocalDateTime modifiedAt;
-
-    @Column(length = 30, nullable = false, name = "modified_by")
-    private String modifiedBy;
+    public UserApplication(String createdBy) {
+        this.createdBy = createdBy;
+    }
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "application_uid", nullable = false)
     private Application application;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JsonIgnore
     @JoinColumn(name = "user_uid", nullable = false)
     private User user;
+
+    public String toString() {
+        return String.format("""
+                User Application Link
+                ------------------------------------
+                userApplicationUid: %d
+                userId: %s
+                applicationId: %s
+                createdAt: %s
+                createdBy: %s
+                ------------------------------------""", userAppsUid, user.toString(), application.toString(),
+                createdAt, createdBy);
+    }
 }

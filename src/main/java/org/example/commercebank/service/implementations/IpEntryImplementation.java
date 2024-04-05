@@ -30,17 +30,37 @@ public class IpEntryImplementation implements IpEntryService {
                 ipEntryInfo.get("destinationPort"), ipEntryInfo.get("createdBy"), referencedApp);
         if(ipEntryInfo.get("ipStatus") != null)
             newIpEntry.setIpStatus(ipEntryInfo.get("ipStatus"));
-        System.out.println("IpEntry:\n" + newIpEntry);
+        else
+            newIpEntry.setIpStatus("inactive");
         return ipEntryRepository.save(newIpEntry);
     }
 
+    /** Needs Logic */
     @Override
-    public IpEntry updateIpEntry(Map<String, String> ipEntryInfo) {
+    public IpEntry updateIpEntry(Map<String, Object> ipEntryInfo) {
+
+
         return null;
     }
 
     @Override
     public void deleteIpEntry(Map<String, Long> ipEntryInfo) {
         ipEntryRepository.deleteById(ipEntryInfo.get("ipEntryUid"));
+    }
+
+    @Override
+    public boolean ipEntryexists(Long ipEntryUid) {
+        return ipEntryRepository.existsById(ipEntryUid);
+    }
+
+    /** Needs Logic */
+    @Override
+    public boolean infoExists(Map<String, String> ipEntryInfo) {
+        return false;
+    }
+
+    @Override
+    public boolean appExists(String applicationId) {
+        return applicationRepository.existsByApplicationId(applicationId);
     }
 }

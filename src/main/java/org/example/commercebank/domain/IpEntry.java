@@ -42,7 +42,7 @@ public class IpEntry {
     private String destinationPort;
 
     @Column(length = 8, nullable = false, name = "ip_status")
-    private String ipStatus = "Active";
+    private String ipStatus;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -56,7 +56,7 @@ public class IpEntry {
     private LocalDateTime modifiedAt;
 
     @Column(length = 30, nullable = false, name = "modified_by")
-    private String modifiedBy = "";
+    private String modifiedBy;
 
     public IpEntry(String sourceHostName, String sourceIpAddress, String destinationHostName,
             String destinationIpAddress, String destinationPort, String createdBy, Application referencedApp) {
@@ -70,13 +70,15 @@ public class IpEntry {
         this.application = referencedApp;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "application_Uid", nullable = false)
     private Application application;
 
     @Override
     public String toString() {
         return String.format("""
+                        Ip Entry:
+                        --------------------------------------
                         ipEntryUid: %d
                         Referenced App: %s
                         sourceHostName: %s
@@ -89,7 +91,7 @@ public class IpEntry {
                         createdBy: %s
                         modifiedAt: %s
                         modifiedBy: %s
-                        """, getIpEntryUid(), getApplication().getApplicationId(),
+                        --------------------------------------""", getIpEntryUid(), application.toString(),
                 getSourceHostName(), getSourceIpAddress(), getDestinationHostName(), getDestinationIpAddress(),
                 getDestinationPort(), getIpStatus(), getCreatedAt(), getCreatedBy(), getModifiedAt(), getModifiedBy());
     }

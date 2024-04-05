@@ -47,8 +47,11 @@ public class Application {
     private LocalDateTime modifiedAt;
 
     @Column(length = 30, nullable = false, name = "modified_by")
-    private String modifiedBy = "";
+    private String modifiedBy;
 
+    public Application(Long applicationUid) {
+        this.applicationUid = applicationUid;
+    }
 
     //Add Foreign Key references to the ServerInfo list and UserApps list
     @JsonIgnore
@@ -59,4 +62,19 @@ public class Application {
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserApplication> userApplications = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return String.format("""
+                        Application:
+                        -------------------------------------
+                        applicationUid: %d
+                        applicationId: %s
+                        applicationDescription: %s
+                        createdAt: %s
+                        createdBy: %s
+                        modifiedAt: %s
+                        modifiedBy: %s
+                        --------------------------------------""", applicationUid, applicationId,
+                applicationDescription, createdAt, createdBy, modifiedAt, modifiedBy);
+    }
 }

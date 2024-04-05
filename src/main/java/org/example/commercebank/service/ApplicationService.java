@@ -7,11 +7,9 @@ import java.util.List;
 public interface ApplicationService {
 
     List<Application> getApplications();
+    List<String> getApplicationIds();
     Application createApplication(Application application);
-
     Application updateApplication(Application application);
-
-    void deleteApplication(String appId);
-
-    boolean exists(String appId);
+    void deleteApplication(Long appUid);
+    boolean exists(Application application);
 }

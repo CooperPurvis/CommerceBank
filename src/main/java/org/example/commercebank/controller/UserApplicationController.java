@@ -22,16 +22,19 @@ public class UserApplicationController {
 
     @PostMapping
     public ResponseEntity<UserApplication> createUserApplication(@RequestBody Map<String, String> userAppInfo) {
+        if(!userApplicationService.userAndAppExists(userAppInfo))
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if(userApplicationService.exists(userAppInfo))
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
         return new ResponseEntity<>(userApplicationService.createUserApplication(userAppInfo), HttpStatus.CREATED);
-    }
-
-    @PutMapping
-    public ResponseEntity<UserApplication> updateUserApplication(@RequestBody Map<String, String> userAppInfo) {
-        return new ResponseEntity<>(userApplicationService.updateUserApplication(userAppInfo), HttpStatus.OK);
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteUserApplication(@RequestBody Map<String, String> userAppInfo) {
+        if(!userApplicationService.userAndAppExists(userAppInfo))
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if(!userApplicationService.exists(userAppInfo))
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
         userApplicationService.deleteUserApplication(userAppInfo);
         return new ResponseEntity<>(HttpStatus.OK);
     }

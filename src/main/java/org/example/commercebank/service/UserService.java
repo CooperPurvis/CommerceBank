@@ -9,9 +9,8 @@ public interface UserService {
     List<User> getAllUsers();
     User createUser(User user);
     User updateUser(User user);
-    void deleteUser(String userId);
-    Map<String, String> getLoginInfo(Map<String, String> loginInfo);
-    String getUserRole(String userId);
-    boolean exists(String userId);
+    void deleteUser(Long userUid);
+    boolean exists(User user);
     boolean isValidLogin(Map<String, String> loginInfo);
+    User getLoginUser(Map<String, String> loginInfo);
 }

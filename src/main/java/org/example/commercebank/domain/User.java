@@ -1,7 +1,6 @@
 package org.example.commercebank.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,11 +30,11 @@ public class User {
     @Column(length = 30, nullable = false, unique = true, name = "user_id")
     private String userId;
 
-    @Column(length = 45, name = "user_password")
+    @Column(length = 45, nullable = false, name = "user_password")
     private String userPassword;
 
     @Column(length = 10, nullable = false, name = "user_role")
-    private String userRole = "user";
+    private String userRole = "User";
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -51,13 +50,18 @@ public class User {
     @Column(length = 30, nullable = false, name = "modified_by")
     private String modifiedBy = "";
 
-    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserApplication> userApplications = new ArrayList<>();
+
+    public User(Long userUid) {
+        this.userUid = userUid;
+    }
 
     @Override
     public String toString() {
         return String.format("""
+                User:
+                -----------------------------------
                 userUid: %d
                 userId: %s
                 userPassword: %s
@@ -66,7 +70,7 @@ public class User {
                 createdBy: %s
                 modifiedAt: %s
                 modifiedBy: %s
-                """, getUserUid(), getUserId(), getUserPassword(), getUserRole(),
-                getCreatedAt(), getCreatedBy(), getModifiedAt(), getModifiedBy());
+                -----------------------------------""", getUserUid(), getUserId(), getUserPassword(),
+                getUserRole(), getCreatedAt(), getCreatedBy(), getModifiedAt(), getModifiedBy());
     }
 }

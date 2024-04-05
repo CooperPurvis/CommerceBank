@@ -6,7 +6,9 @@ import org.example.commercebank.repository.ApplicationRepository;
 import org.example.commercebank.service.ApplicationService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -20,6 +22,15 @@ public class ApplicationImplementation implements ApplicationService {
     }
 
     @Override
+    public List<String> getApplicationIds() {
+        List<Application> applications = getApplications();
+        List<String> applicationIds = new ArrayList<>();
+        for(Application application : applications)
+            applicationIds.add(application.getApplicationId());
+        return applicationIds;
+    }
+
+    @Override
     public Application createApplication(Application newApp) {
         newApp.setModifiedBy(newApp.getCreatedBy());
         return applicationRepository.save(newApp);
@@ -27,10 +38,10 @@ public class ApplicationImplementation implements ApplicationService {
 
     @Override
     public Application updateApplication(Application newApp) {
-        Application oldApp = applicationRepository.getByApplicationId(newApp.getApplicationId());
-        newApp.setApplicationUid(oldApp.getApplicationUid());
-        if(newApp.getApplicationDescription() == null)
-            newApp.setApplicationDescription(oldApp.getApplicationDescription());
+        Optional<Application> oldAppList = applicationRepository.findById(newApp.getApplicationUid());
+        if(oldAppList.isEmpty())
+            return null;
+        Application oldApp = oldAppList.get();
         newApp.setModifiedBy(newApp.getCreatedBy());
         newApp.setCreatedAt(oldApp.getCreatedAt());
         newApp.setCreatedBy(oldApp.getCreatedBy());
@@ -38,13 +49,15 @@ public class ApplicationImplementation implements ApplicationService {
     }
 
     @Override
-    public void deleteApplication(String appId) {
-        applicationRepository.delete(applicationRepository.getByApplicationId(appId));
+    public void deleteApplication(Long appUid) {
+        applicationRepository.deleteById(appUid);
     }
 
     @Override
-    public boolean exists(String appId) {
-        return applicationRepository.existsByApplicationId(appId);
+    public boolean exists(Application application) {
+        if(application.getApplicationUid() != null)
+            return applicationRepository.existsById(application.getApplicationUid());
+        return applicationRepository.existsByApplicationId(application.getApplicationId());
     }
 
 }
