@@ -1,6 +1,7 @@
 package org.example.commercebank.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -50,12 +51,9 @@ public class User {
     @Column(length = 30, nullable = false, name = "modified_by")
     private String modifiedBy = "";
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserApplication> userApplications = new ArrayList<>();
-
-    public User(Long userUid) {
-        this.userUid = userUid;
-    }
 
     @Override
     public String toString() {

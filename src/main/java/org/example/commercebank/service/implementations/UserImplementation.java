@@ -42,8 +42,8 @@ public class UserImplementation implements UserService {
     }
 
     @Override
-    public void deleteUser(Long userUid) {
-        userRepository.deleteById(userUid);
+    public void deleteUser(User user) {
+        userRepository.deleteById(user.getUserUid());
     }
 
     @Override
@@ -53,6 +53,10 @@ public class UserImplementation implements UserService {
         return userRepository.existsByUserId(user.getUserId());
     }
 
+    @Override
+    public boolean infoMissing(User user) {
+        return user.getUserId() == null || user.getUserPassword() == null || user.getCreatedBy() == null;
+    }
 
     //Related to Logging in
     @Override

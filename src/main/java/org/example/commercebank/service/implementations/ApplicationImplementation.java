@@ -49,8 +49,8 @@ public class ApplicationImplementation implements ApplicationService {
     }
 
     @Override
-    public void deleteApplication(Long appUid) {
-        applicationRepository.deleteById(appUid);
+    public void deleteApplication(Application application) {
+        applicationRepository.deleteById(application.getApplicationUid());
     }
 
     @Override
@@ -60,4 +60,8 @@ public class ApplicationImplementation implements ApplicationService {
         return applicationRepository.existsByApplicationId(application.getApplicationId());
     }
 
+    @Override
+    public boolean infoMissing(Application application) {
+        return application.getApplicationId() == null || application.getCreatedBy() == null;
+    }
 }

@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 import java.util.List;
 
 @RestController
@@ -27,24 +26,31 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User user) {
         if(userService.exists(user))
             return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        if(userService.infoMissing(user))
+            return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
     }
 
     //Update user information for a userId in the database
     @PutMapping
     public ResponseEntity<User> updateUser(@RequestBody User user) {
+        if(user.getUserUid() == null)
+            return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
         if(!userService.exists(user))
             return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
-        User updatedUser = userService.updateUser(user);
-        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        if(userService.infoMissing(user))
+            return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
+        return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
     }
 
     //Delete an existing user in the database
     @DeleteMapping
-    public ResponseEntity<Void> deleteUser(@RequestBody Map<String, Long> userInfo) {
-        if(!userService.exists(new User(userInfo.get("userUid"))))
+    public ResponseEntity<Void> deleteUser(@RequestBody User user) {
+        if(user.getUserUid() == null)
+            return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
+        if(!userService.exists(user))
             return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
-        userService.deleteUser(userInfo.get("userUid"));
+        userService.deleteUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

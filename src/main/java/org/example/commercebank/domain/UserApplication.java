@@ -1,7 +1,5 @@
 package org.example.commercebank.domain;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -32,17 +30,12 @@ public class UserApplication {
     @Column(length = 30, nullable = false, name = "created_by")
     private String createdBy;
 
-    public UserApplication(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "application_uid", nullable = false)
     private Application application;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JsonIgnore
     @JoinColumn(name = "user_uid", nullable = false)
     private User user;
 
@@ -51,11 +44,11 @@ public class UserApplication {
                 User Application Link
                 ------------------------------------
                 userApplicationUid: %d
-                userId: %s
-                applicationId: %s
                 createdAt: %s
                 createdBy: %s
-                ------------------------------------""", userAppsUid, user.toString(), application.toString(),
-                createdAt, createdBy);
+                %s
+                %s
+                ------------------------------------""", userAppsUid, createdAt, createdBy, user == null? "null user" : user.toString(),
+                application == null? "null application" : application.toString());
     }
 }

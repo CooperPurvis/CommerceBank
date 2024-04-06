@@ -10,6 +10,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -37,19 +40,23 @@ public class IpEntryController {
     //Update existing Ip Entry in the database
     @PutMapping("/api/ipEntry")
     public ResponseEntity<IpEntry> updateIpEntry(@RequestBody IpEntry ipEntry) {
+        if(ipEntry.getIpEntryUid() == null || ipEntry.getApplication() == null)
+            return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
         if(ipEntryService.applicationNotExists(ipEntry.getApplication().getApplicationId()))
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         if(ipEntryService.ipEntryUidNotExists(ipEntry.getIpEntryUid()))
             return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
-        if(ipEntryService.infoExists(ipEntry))
-            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
         if(ipEntryService.infoMissing(ipEntry))
             return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
+        if(ipEntryService.infoExists(ipEntry))
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
         return new ResponseEntity<>(ipEntryService.updateIpEntry(ipEntry), HttpStatus.OK);
     }
     //Delete existing Ip Entry
     @DeleteMapping("/api/ipEntry")
     public ResponseEntity<Void> deleteIpEntry(@RequestBody IpEntry ipEntry) {
+        if(ipEntry.getIpEntryUid() == null)
+            return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
         if(ipEntryService.ipEntryUidNotExists(ipEntry.getIpEntryUid()))
             return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
         ipEntryService.deleteIpEntry(ipEntry.getIpEntryUid());
@@ -58,13 +65,19 @@ public class IpEntryController {
     //Export Ip Entries to an Excel Spreadsheet
     @GetMapping("/api/ipEntry/export")
     public ResponseEntity<byte[]> exportIpEntries() {
+        //Get a list of Ip Entries to export to excel
         List<IpEntry> ipEntryList = ipEntryService.getIpEntries();
-        IpEntryExporter exporter = new IpEntryExporter(ipEntryList);
 
-        byte[] spreadsheet = exporter.export();
-        /* Add a way to get date as a string in the fileName */
-        String fileName = "Ip_Entry_List_2024_04_05_10:27.xlsx";
-            return ResponseEntity.ok()
+        //Create an excelExporter and export the list to excel as a byte array
+        IpEntryExporter excelExporter = new IpEntryExporter(ipEntryList);
+        byte[] spreadsheet = excelExporter.export();
+
+        //Create a file name including the current date and time
+        DateFormat dateFormat = new SimpleDateFormat("yy-MM-dd:HH:mm:ss");
+        String fileName = String.format("Ip_Entry_List_%s.xlsx", dateFormat.format(new Date()));
+
+        //Return the spreadsheet as a byte array with headers that signal all needed information
+        return ResponseEntity.status(HttpStatus.CREATED)
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName)
                     .contentType(MediaType.parseMediaType("application/octet-stream"))
                     .contentLength(spreadsheet.length)

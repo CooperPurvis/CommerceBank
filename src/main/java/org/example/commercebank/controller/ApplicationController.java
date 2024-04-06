@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping
@@ -31,21 +30,29 @@ public class ApplicationController {
     public ResponseEntity<Application> createApplication(@RequestBody Application application) {
         if(applicationService.exists(application))
             return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        if(applicationService.infoMissing(application))
+            return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
         return new ResponseEntity<>(applicationService.createApplication(application), HttpStatus.CREATED);
     }
 
     @PutMapping("/api/application")
     public ResponseEntity<Application> updateApplication(@RequestBody Application application) {
+        if(application.getApplicationUid() == null)
+            return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
         if(!applicationService.exists(application))
             return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        if(applicationService.infoMissing(application))
+            return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
         return new ResponseEntity<>(applicationService.updateApplication(application), HttpStatus.OK);
     }
 
     @DeleteMapping("/api/application")
-    public ResponseEntity<Void> deleteApplication(@RequestBody Map<String, Long> appInfo) {
-        if(!applicationService.exists(new Application(appInfo.get("applicationUid"))))
+    public ResponseEntity<Void> deleteApplication(@RequestBody Application application) {
+        if(application.getApplicationUid() == null)
+            return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
+        if(!applicationService.exists(application))
             return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
-        applicationService.deleteApplication(appInfo.get("applicationUid"));
+        applicationService.deleteApplication(application);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
