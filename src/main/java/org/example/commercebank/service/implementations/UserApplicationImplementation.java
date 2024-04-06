@@ -36,9 +36,7 @@ public class UserApplicationImplementation implements UserApplicationService {
     public void deleteUserApplication(Map<String, String> userAppInfo) {
         User refUser = userRepository.getByUserId(userAppInfo.get("userId"));
         Application refApp =  applicationRepository.getByApplicationId(userAppInfo.get("applicationId"));
-        //userApplicationRepository.deleteUserApplicationByApplicationAndUser(refApp, refUser);
         UserApplication oldLink = userApplicationRepository.getByUserAndApplication(refUser, refApp);
-        System.out.println(oldLink.toString());
         userApplicationRepository.deleteById(oldLink.getUserAppsUid());
     }
 

@@ -50,30 +50,7 @@ public class IpEntryExporter {
         }
     }
 
-//    private File writeToFile() {
-//        Date date = Calendar.getInstance(TimeZone.getTimeZone("America/Chicago")).getTime();
-//        //String dateString = String.format("%s_%s_%s_%s_%s_%s", date.getTime())
-//        String fileName = "Ip_Entry_List";//_" + dateString;
-//        //System.out.println("Filename: " + fileName);
-//        //File file = new File(fileName + ".xlsx");
-
-//        ByteArrayOutputStream fileWriter = new ByteArrayOutputStream();
-//        try {
-//            FileOutputStream fileWriter = new FileOutputStream(file);
-//            workbook.write(fileWriter);
-//            fileWriter.close();
-//            workbook.close();
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//            System.out.println("Error Opening File Writer!\n");
-//            return null;
-//        }
-//
-//        return file;
-//    }
-
-    public ByteArrayOutputStream export() {
+    public byte[] export() {
         openWorkbook();
         createHeaderRow();
         addIpEntries();
@@ -85,6 +62,6 @@ public class IpEntryExporter {
         catch(Exception e) {
             System.out.println("Problem!!\n\n");
         }
-        return fileWriter;//writeToFile();
+        return fileWriter.toByteArray();
     }
 }

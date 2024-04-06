@@ -58,18 +58,6 @@ public class IpEntry {
     @Column(length = 30, nullable = false, name = "modified_by")
     private String modifiedBy;
 
-    public IpEntry(String sourceHostName, String sourceIpAddress, String destinationHostName,
-            String destinationIpAddress, String destinationPort, String createdBy, Application referencedApp) {
-        this.sourceHostName = sourceHostName;
-        this.sourceIpAddress = sourceIpAddress;
-        this.destinationHostName = destinationHostName;
-        this.destinationIpAddress = destinationIpAddress;
-        this.destinationPort = destinationPort;
-        this.createdBy = createdBy;
-        this.modifiedBy = createdBy;
-        this.application = referencedApp;
-    }
-
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "application_Uid", nullable = false)
     private Application application;
