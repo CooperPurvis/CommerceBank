@@ -16,6 +16,7 @@ public class LoginController {
     private UserService userService;
 
     @GetMapping
+    @CrossOrigin
     //Check to ensure the entered information matches a user in the database
     public ResponseEntity<User> loginCheck(@RequestBody Map<String, String> loginInfo) {
         if(userService.isValidLogin(loginInfo))

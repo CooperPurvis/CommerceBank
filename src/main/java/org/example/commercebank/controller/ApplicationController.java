@@ -17,16 +17,19 @@ public class ApplicationController {
     private ApplicationService applicationService;
 
     @GetMapping("/api/application")
+    @CrossOrigin
     public ResponseEntity<List<Application>> getApplications() {
         return new ResponseEntity<>(applicationService.getApplications(), HttpStatus.OK);
     }
 
     @GetMapping("/api/application/idList")
+    @CrossOrigin
     public ResponseEntity<List<String>> getApplicationIds() {
         return new ResponseEntity<>(applicationService.getApplicationIds(), HttpStatus.OK);
     }
 
     @PostMapping("/api/application")
+    @CrossOrigin
     public ResponseEntity<Application> createApplication(@RequestBody Application application) {
         if(applicationService.exists(application))
             return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
@@ -36,6 +39,7 @@ public class ApplicationController {
     }
 
     @PutMapping("/api/application")
+    @CrossOrigin
     public ResponseEntity<Application> updateApplication(@RequestBody Application application) {
         if(application.getApplicationUid() == null)
             return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
@@ -47,6 +51,7 @@ public class ApplicationController {
     }
 
     @DeleteMapping("/api/application")
+    @CrossOrigin
     public ResponseEntity<Void> deleteApplication(@RequestBody Application application) {
         if(application.getApplicationUid() == null)
             return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);

@@ -16,6 +16,7 @@ public class UserApplicationController {
 
     //Return list of Assigned Applications
     @GetMapping
+    @CrossOrigin
     public ResponseEntity<List<String>> getUserApplications(@RequestBody UserApplication userApplication){
         if(userApplicationService.userNotExists(userApplication))
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -23,6 +24,7 @@ public class UserApplicationController {
     }
     //Create a User Application and return it
     @PostMapping
+    @CrossOrigin
     public ResponseEntity<UserApplication> createUserApplication(@RequestBody UserApplication userApplication) {
         if(userApplicationService.userOrAppNotExists(userApplication))
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -34,6 +36,7 @@ public class UserApplicationController {
     }
     //Delete a User Application if the given userId and applicationId exist in the table
     @DeleteMapping
+    @CrossOrigin
     public ResponseEntity<Void> deleteUserApplication(@RequestBody UserApplication userApplication) {
         if(userApplicationService.userOrAppNotExists(userApplication))
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

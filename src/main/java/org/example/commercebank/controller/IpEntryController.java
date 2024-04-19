@@ -23,11 +23,13 @@ public class IpEntryController {
 
     //Return list of all Ip Entries
     @GetMapping("/api/ipEntry")
+    @CrossOrigin
     public ResponseEntity<List<IpEntry>> getIpEntries() {
         return new ResponseEntity<>(ipEntryService.getIpEntries(), HttpStatus.OK);
     }
     //Add an Ip Entry to the database
     @PostMapping("/api/ipEntry")
+    @CrossOrigin
     public ResponseEntity<IpEntry> createIpEntry(@RequestBody IpEntry ipEntry) {
         if(ipEntryService.applicationNotExists(ipEntry.getApplication().getApplicationId()))
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -39,6 +41,7 @@ public class IpEntryController {
     }
     //Update existing Ip Entry in the database
     @PutMapping("/api/ipEntry")
+    @CrossOrigin
     public ResponseEntity<IpEntry> updateIpEntry(@RequestBody IpEntry ipEntry) {
         if(ipEntry.getIpEntryUid() == null || ipEntry.getApplication() == null)
             return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
@@ -54,6 +57,7 @@ public class IpEntryController {
     }
     //Delete existing Ip Entry
     @DeleteMapping("/api/ipEntry")
+    @CrossOrigin
     public ResponseEntity<Void> deleteIpEntry(@RequestBody IpEntry ipEntry) {
         if(ipEntry.getIpEntryUid() == null)
             return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
@@ -64,6 +68,7 @@ public class IpEntryController {
     }
     //Export Ip Entries to an Excel Spreadsheet
     @GetMapping("/api/ipEntry/export")
+    @CrossOrigin
     public ResponseEntity<byte[]> exportIpEntries() {
         //Get a list of Ip Entries to export to excel
         List<IpEntry> ipEntryList = ipEntryService.getIpEntries();

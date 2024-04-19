@@ -17,11 +17,13 @@ public class UserController {
 
     //Get all users in the database
     @GetMapping
+    @CrossOrigin
     public ResponseEntity<List<User>> getUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
     //Create a user entity and add it to the database
+    @CrossOrigin
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         if(userService.exists(user))
@@ -33,6 +35,7 @@ public class UserController {
 
     //Update user information for a userId in the database
     @PutMapping
+    @CrossOrigin
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         if(user.getUserUid() == null)
             return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
@@ -45,6 +48,7 @@ public class UserController {
 
     //Delete an existing user in the database
     @DeleteMapping
+    @CrossOrigin
     public ResponseEntity<Void> deleteUser(@RequestBody User user) {
         if(user.getUserUid() == null)
             return new ResponseEntity<>(HttpStatus.PARTIAL_CONTENT);
