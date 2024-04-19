@@ -15,7 +15,7 @@ import java.util.Map;
 public class LoginController {
     private UserService userService;
 
-    @GetMapping
+    @PostMapping
     @CrossOrigin
     //Check to ensure the entered information matches a user in the database
     public ResponseEntity<User> loginCheck(@RequestBody Map<String, String> loginInfo) {
