@@ -83,7 +83,7 @@ public class IpEntryController {
 
         //Return the spreadsheet as a byte array with headers that signal all needed information
         return ResponseEntity.status(HttpStatus.CREATED)
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=" + fileName)
                     .contentType(MediaType.parseMediaType("application/octet-stream"))
                     .contentLength(spreadsheet.length)
                     .body(spreadsheet);
