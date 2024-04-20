@@ -77,13 +77,9 @@ public class IpEntryController {
         IpEntryExporter excelExporter = new IpEntryExporter(ipEntryList);
         byte[] spreadsheet = excelExporter.export();
 
-        //Create a file name including the current date and time
-        DateFormat dateFormat = new SimpleDateFormat("yy-MM-dd:HH:mm:ss");
-        String fileName = String.format("Ip_Entry_List_%s.xlsx", dateFormat.format(new Date()));
 
         //Return the spreadsheet as a byte array with headers that signal all needed information
         return ResponseEntity.status(HttpStatus.CREATED)
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=" + fileName)
                     .contentType(MediaType.parseMediaType("application/octet-stream"))
                     .contentLength(spreadsheet.length)
                     .body(spreadsheet);
