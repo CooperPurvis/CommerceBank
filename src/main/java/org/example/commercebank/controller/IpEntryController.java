@@ -19,7 +19,7 @@ public class IpEntryController {
     private IpEntryService ipEntryService;
 
     //Return list of all Ip Entries
-    @GetMapping("/api/ipEntry")
+    @PostMapping("/api/ipEntry/get")
     @CrossOrigin
     public ResponseEntity<List<IpEntry>> getIpEntries(@RequestBody Map<String, List<Long>> json) {
         return new ResponseEntity<>(ipEntryService.getIpEntries(json.get("ipEntryUids")), HttpStatus.OK);
@@ -64,7 +64,7 @@ public class IpEntryController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     //Export Ip Entries to an Excel Spreadsheet
-    @GetMapping("/api/ipEntry/export")
+    @PostMapping("/api/ipEntry/export")
     @CrossOrigin
     public ResponseEntity<byte[]> exportIpEntries(@RequestBody Map<String, List<Long>> json) {
         //Get a list of Ip Entries to export to excel
