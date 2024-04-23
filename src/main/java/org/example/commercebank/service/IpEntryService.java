@@ -5,7 +5,7 @@ import org.example.commercebank.domain.IpEntry;
 import java.util.List;
 
 public interface IpEntryService {
-    List<IpEntry> getIpEntries();
+    List<IpEntry> getIpEntries(List<Long> ipEntryUids);
     IpEntry addIpEntry(IpEntry ipEntry);
     IpEntry updateIpEntry(IpEntry ipEntry);
     void deleteIpEntry(Long ipEntryUid);

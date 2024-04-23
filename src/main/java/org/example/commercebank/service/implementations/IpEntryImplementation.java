@@ -18,8 +18,10 @@ public class IpEntryImplementation implements IpEntryService {
 
     @Override
     // Return a list of all Ip Entries in the Database
-    public List<IpEntry> getIpEntries() {
-        return ipEntryRepository.findAll();
+    public List<IpEntry> getIpEntries(List<Long> ipEntryUids) {
+        if(ipEntryUids.isEmpty())
+            return ipEntryRepository.findAll();
+        return ipEntryRepository.findAllById(ipEntryUids);
     }
 
     @Override

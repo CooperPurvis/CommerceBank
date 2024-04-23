@@ -4,16 +4,13 @@ import lombok.AllArgsConstructor;
 import org.example.commercebank.IpEntryExporter;
 import org.example.commercebank.domain.IpEntry;
 import org.example.commercebank.service.IpEntryService;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping
@@ -24,8 +21,8 @@ public class IpEntryController {
     //Return list of all Ip Entries
     @GetMapping("/api/ipEntry")
     @CrossOrigin
-    public ResponseEntity<List<IpEntry>> getIpEntries() {
-        return new ResponseEntity<>(ipEntryService.getIpEntries(), HttpStatus.OK);
+    public ResponseEntity<List<IpEntry>> getIpEntries(@RequestBody Map<String, List<Long>> json) {
+        return new ResponseEntity<>(ipEntryService.getIpEntries(json.get("ipEntryUids")), HttpStatus.OK);
     }
     //Add an Ip Entry to the database
     @PostMapping("/api/ipEntry")
@@ -69,9 +66,9 @@ public class IpEntryController {
     //Export Ip Entries to an Excel Spreadsheet
     @GetMapping("/api/ipEntry/export")
     @CrossOrigin
-    public ResponseEntity<byte[]> exportIpEntries() {
+    public ResponseEntity<byte[]> exportIpEntries(@RequestBody Map<String, List<Long>> json) {
         //Get a list of Ip Entries to export to excel
-        List<IpEntry> ipEntryList = ipEntryService.getIpEntries();
+        List<IpEntry> ipEntryList = ipEntryService.getIpEntries(json.get("ipEntryUids"));
 
         //Create an excelExporter and export the list to excel as a byte array
         IpEntryExporter excelExporter = new IpEntryExporter(ipEntryList);
