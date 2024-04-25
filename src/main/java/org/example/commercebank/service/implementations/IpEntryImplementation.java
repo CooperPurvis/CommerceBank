@@ -32,7 +32,7 @@ public class IpEntryImplementation implements IpEntryService {
 
         //Set default ipStatus if not provided, and set modifiedBy to match createdBy
         if(ipEntry.getIpStatus() == null)
-            ipEntry.setIpStatus("inactive");
+            ipEntry.setIpStatus("Inactive");
         ipEntry.setModifiedBy(ipEntry.getCreatedBy());
 
         //Save new Ip Entry and return
@@ -47,7 +47,7 @@ public class IpEntryImplementation implements IpEntryService {
 
         //Set default ipStatus
         if(ipEntry.getIpStatus() == null)
-            ipEntry.setIpStatus("inactive");
+            ipEntry.setIpStatus("Inactive");
 
         //Get the existing Ip Entry and update information as needed
         Optional<IpEntry> oldIpEntryReturn = ipEntryRepository.findById(ipEntry.getIpEntryUid());
