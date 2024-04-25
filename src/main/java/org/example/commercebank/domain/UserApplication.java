@@ -1,6 +1,5 @@
 package org.example.commercebank.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -36,7 +35,6 @@ public class UserApplication {
     @JoinColumn(name = "application_uid", nullable = false)
     private Application application;
 
-    @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_uid", nullable = false)
     private User user;

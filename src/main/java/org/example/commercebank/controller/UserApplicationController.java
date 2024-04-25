@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/userApplication")
 @AllArgsConstructor
 public class UserApplicationController {
     private UserApplicationService userApplicationService;
 
     //Return list of Assigned Applications
-    @GetMapping
+    @PostMapping("/api/userApplication/get")
     @CrossOrigin
     public ResponseEntity<List<String>> getUserApplications(@RequestBody UserApplication userApplication){
         if(userApplicationService.userNotExists(userApplication))
@@ -23,7 +22,7 @@ public class UserApplicationController {
         return new ResponseEntity<>(userApplicationService.getAssignedApplicationIds(userApplication), HttpStatus.OK);
     }
     //Create a User Application and return it
-    @PostMapping
+    @PostMapping("/api/userApplication")
     @CrossOrigin
     public ResponseEntity<UserApplication> createUserApplication(@RequestBody UserApplication userApplication) {
         if(userApplicationService.userOrAppNotExists(userApplication))
@@ -35,7 +34,7 @@ public class UserApplicationController {
         return new ResponseEntity<>(userApplicationService.createUserApplication(userApplication), HttpStatus.CREATED);
     }
     //Delete a User Application if the given userId and applicationId exist in the table
-    @DeleteMapping
+    @DeleteMapping("/api/userApplication")
     @CrossOrigin
     public ResponseEntity<Void> deleteUserApplication(@RequestBody UserApplication userApplication) {
         if(userApplicationService.userOrAppNotExists(userApplication))
