@@ -1,0 +1,105 @@
+body.active-modal{
+    overflow-y: hidden;
+}
+
+.popupBackground {
+    width: 100vw;
+    height: 84vh;
+    background-color: rgb(0 0 0 / 80%);
+    /*border-radius: 6px;*/
+    position: absolute;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup {
+    width: 50vw;
+    height: 80vh;
+    border-radius: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    background-color: white;
+    /*border: 3px solid pink;*/
+}
+
+form {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    /*border: 3px solid #ff0000;*/
+}
+
+input {
+    width: 10vw;
+    height: 4vh;
+    font-size: 2.5vh;
+}
+
+h3{
+    font-size: 7vh;
+    margin-top: 4%;
+}
+
+h4, h5 {
+    margin: 4%;
+}
+
+h5{
+    font-size: 2vh;
+}
+
+h4 {
+    font-size: 9vh;
+    font-weight: bold;
+}
+
+.fullWidth {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: center;
+    /*border: 3px solid #d61cff;*/
+}
+
+.halfWidth {
+    display: flex;
+    flex-basis: 50%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    /*border: 3px solid #006548;*/
+    font-size: 3vh;
+}
+
+.item {
+    width: 10vw;
+    height: 5vh;
+    text-align: center;
+    font-size: 2.5vh;
+}
+
+.popupButton {
+    width: 12vh;
+    height: 7vh;
+    margin: 2em 5em;
+    background-color: #006548;
+    color: white;
+    border-radius: .5em;
+    font-size: 3vh;
+
+}
+
+#cancelButton {
+    background-color: maroon;
+}
+
+.popupButton:hover{
+    background-image: linear-gradient(to bottom right, #359837, darkgreen, #006548);
+}
+
+#cancelButton:hover{
+    background-image: linear-gradient(to bottom right, indianred, maroon, darkred);
+}
+

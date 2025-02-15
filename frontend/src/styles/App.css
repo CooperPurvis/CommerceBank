@@ -1,0 +1,288 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  /*border: 1px solid;*/
+  justify-content: center;
+  height: 100vh;
+  max-width: 100%;
+}
+
+.headerContainer{
+  display: flex;
+  align-content: start;
+  align-self: stretch;
+  background-size: cover;
+  background-position: center center;
+  background-color: #006548;
+}
+
+.bodyContainerLogin{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  flex-grow: 1;
+  align-self: stretch;
+  overflow: scroll;
+  /*border: 3px solid green;*/
+}
+
+.bodyContainer{
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-content: start;
+  display: flex;
+  flex-grow: 1;
+  align-self: stretch;
+  /*overflow: scroll;*/
+  /*border: 3px solid green;*/
+}
+
+.footerContainer{
+  display: flex;
+  align-self: stretch;
+  /*border: 3px solid red;*/
+  justify-content: flex-start;
+  background-color: #ffffff;
+  width: fit-content;
+  margin: 10px;
+  border-radius: 60px;
+}
+
+.footerContainer:hover {
+  cursor: pointer;
+}
+
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  font-size: 64px;
+  font-weight: bolder;
+  align-items: start;
+  justify-content: center;
+}
+
+.resultContainer,
+.historyItem {
+  flex-direction: row;
+  display: flex;
+  width: 400px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.historyContainer {
+  flex-direction: column;
+  display: flex;
+  height: 200px;
+  align-items: center;
+  flex-grow: 5;
+  justify-content: flex-start;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 260px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12px 24px;
+}
+
+.inputContainer > .errorLabel {
+  color: red;
+  font-size: 12px;
+}
+
+.inputBox {
+  height: 48px;
+  width: 400px;
+  font-size: large;
+  border-radius: 8px;
+  border: 1px solid grey;
+  padding-left: 8px;
+}
+.App-logo {
+  height: 18vh;
+  width: 16.5vh;
+  pointer-events: none;
+  background-color: #ffffff;
+  border: #006548 1.5vh inset;
+}
+
+.backPicture {
+  height: 12vh;
+  width: 12vh;
+  pointer-events: none;
+}
+
+.backPicture:hover {
+  cursor: pointer;
+}
+
+
+.commerceButton {
+  margin: 1em;
+  background: #006548;
+  align-items: end;
+  height: 50px;
+  width: 180px;
+  border: none;
+  color: white;
+  font-size: 24px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.commerceButton:hover{
+  background-image: linear-gradient(to bottom right, #359837, darkgreen, #006548);
+}
+
+.genContainer {
+  display: flex;
+  /*flex-wrap: wrap;*/
+  font-size: 11px;
+  font-weight: bolder;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
+.genContainer {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 20px;
+  font-weight: bolder;
+  align-items: center;
+}
+.buttContainer {
+   display: flex;
+   flex-wrap: wrap;
+   align-items: center;
+   justify-content: space-evenly;
+ }
+.logoutContainer {
+  display: flex;
+  align-content: flex-end;
+}
+
+div.headerContainer>.commerceButton {
+  align-self: center;
+  margin-left: auto;
+  margin-right: 4%;
+  background-color: maroon;
+  height: 7vh;
+  width: 18vh;
+  font-size: 3.5vh;
+}
+
+div.headerContainer>.commerceButton:hover{
+  background-image: linear-gradient(to bottom right, indianred, maroon, darkred);
+}
+
+h1 {
+  padding: 0 1em;
+  font-size: 7vh;
+  color: white;
+
+}
+
+h2 {
+  position: fixed;
+  top: 3%;
+  font-size: 4vh;
+  color: white;
+}
+
+h4{
+  font-size: 2vh;
+}
+
+/*.stickyContainer {*/
+/*  position: sticky;*/
+/*  background-color: white;*/
+/*}*/
+
+table {
+  border-spacing: 0;
+  width: 1vw;
+}
+
+th {
+  font-weight: bold;
+  font-size: large;
+  text-align: center;
+  margin: 0;
+  padding: 0 0.5em;
+  background-color: white;
+  color: #006548;
+  border: 1px solid black
+}
+
+tr {
+  font-weight: normal;
+  font-size: medium;
+  text-align: left;
+  margin: 0;
+  padding: 0 0.5em;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.entryRow:hover {
+  background-color: lightgray;
+}
+
+.entryCell {
+  background-color: inherit;
+}
+
+.infoContainer {
+  margin: 1em;
+  padding: 1em;
+  width: 100vw;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.backButton {
+
+
+  width: 7vh;
+  height: 7vh;
+}
+
+.paddingTop {
+  padding-top: 5vh;
+}
+
+.indentContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-content: start;
+  width: 500px;
+  height: 400px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px 3px lightgray;
+}
